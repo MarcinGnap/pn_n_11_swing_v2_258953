@@ -5,14 +5,14 @@ import java.awt.Graphics;
 
 class cnvs extends Canvas {
 
-    public void paint(Graphics g){
+    public void paint(Graphics g, int MouseX, int MouseY){
         g.setColor(Color.GREEN);
-        g.fillRect(50, 50, 50, 50);
+        g.fillRect(MouseX, MouseY, 50, 50);
     }
 
-    public void paintOval(Graphics g){
+    public void paintOval(Graphics g, int MouseX, int MouseY){
         g.setColor(Color.GREEN);
-        g.drawOval(50, 50, 50, 50);
+        g.drawOval(MouseX, MouseY, 50, 50);
     }
 
 }

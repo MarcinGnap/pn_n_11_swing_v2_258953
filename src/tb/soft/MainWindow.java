@@ -1,5 +1,7 @@
 package tb.soft;
 
+import com.sun.tools.javac.Main;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,7 +13,7 @@ import java.util.Random;
 import java.awt.Canvas;
 
 public class MainWindow extends JFrame {
-    private static final String title = "Log in Window";
+    private static final String title = "Click me!";
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -33,7 +35,11 @@ public class MainWindow extends JFrame {
         buildFrame(panel);
     }
 
-    protected void buildFrame(JPanel panel) {
+    public void runNewFrame(JPanel newPanel){
+        MainWindow newFrame = new MainWindow(newPanel);
+        newFrame.setVisible(true);
+
+        cnvs kanwa = new cnvs();
 
         Point p = MouseInfo.getPointerInfo().getLocation();
         int MouseX = p.x;
@@ -42,11 +48,29 @@ public class MainWindow extends JFrame {
         setBounds(0, 0, 640, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        newPanel.setLayout(null);
+
+        JPanel newContentPane = new JPanel();
+
+        newContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(newContentPane);
+        newContentPane.setLayout(null);
+
+        newPanel.setBounds(0, 0, 640, 640);
+        newContentPane.add(newPanel);
+        newContentPane.add(kanwa);
+    }
+
+    protected void buildFrame(JPanel panel) {
+
+        setBounds(0, 0, 640, 640);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         panel.setLayout(null);
 
-        JPanel contentPane = new JPanel();
+        JPanel newPanel = new JPanel();
 
-        cnvs kanwa = new cnvs();
+        JPanel contentPane = new JPanel();
 
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -54,7 +78,6 @@ public class MainWindow extends JFrame {
 
         panel.setBounds(0, 0, 640, 640);
         contentPane.add(panel);
-        contentPane.add(kanwa);
 
         JButton btn = new JButton("Click");
         btn.addMouseListener(new MouseAdapter() {
@@ -70,13 +93,13 @@ public class MainWindow extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                runCanva(MouseX, MouseY);
+                runNewFrame(newPanel);
             }
         });
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                runCanva(MouseX, MouseY);
+                runNewFrame(newPanel);
             }
         });
         btn.setBounds(20, 500, 100, 35);
@@ -92,11 +115,6 @@ public class MainWindow extends JFrame {
         });
         reset.setBounds(515, 555, 100, 35);
         panel.add(reset);
-    }
-
-    public void runCanva(int MouseX, int MouseY){
-
-        paint(g);
     }
 
 }
