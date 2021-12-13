@@ -3,6 +3,8 @@ package tb.soft;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
@@ -32,6 +34,13 @@ public class MainWindow extends JFrame {
 
     protected void buildFrame(JPanel panel) {
 
+        Canvas canva = new Canvas();
+        canva.setSize(640, 640);
+
+        Point p = MouseInfo.getPointerInfo().getLocation();
+        int MouseX = p.x;
+        int MouseY = p.y;
+
         setBounds(0, 0, 640, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -60,7 +69,13 @@ public class MainWindow extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                runCanva();
+                runCanva(canva, MouseX, MouseY);
+            }
+        });
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                runCanva(canva, MouseX, MouseY);
             }
         });
         btn.setBounds(20, 500, 100, 35);
@@ -78,7 +93,9 @@ public class MainWindow extends JFrame {
         panel.add(reset);
     }
 
-    public void runCanva(){
-        MyCanva.drawOval();
+    public void runCanva(Canvas canva, int MouseX, int MouseY){
+
+        Graphics g = canva.getGraphics();
+        g.drawOval(MouseX, MouseY, 25, 25);
     }
 }
