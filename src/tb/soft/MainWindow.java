@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
+import java.awt.Canvas;
 
 public class MainWindow extends JFrame {
     private static final String title = "Log in Window";
@@ -34,9 +35,6 @@ public class MainWindow extends JFrame {
 
     protected void buildFrame(JPanel panel) {
 
-        Canvas canva = new Canvas();
-        canva.setSize(640, 640);
-
         Point p = MouseInfo.getPointerInfo().getLocation();
         int MouseX = p.x;
         int MouseY = p.y;
@@ -48,12 +46,15 @@ public class MainWindow extends JFrame {
 
         JPanel contentPane = new JPanel();
 
+        cnvs kanwa = new cnvs();
+
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
         panel.setBounds(0, 0, 640, 640);
         contentPane.add(panel);
+        contentPane.add(kanwa);
 
         JButton btn = new JButton("Click");
         btn.addMouseListener(new MouseAdapter() {
@@ -69,13 +70,13 @@ public class MainWindow extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                runCanva(canva, MouseX, MouseY);
+                runCanva(MouseX, MouseY);
             }
         });
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                runCanva(canva, MouseX, MouseY);
+                runCanva(MouseX, MouseY);
             }
         });
         btn.setBounds(20, 500, 100, 35);
@@ -93,9 +94,9 @@ public class MainWindow extends JFrame {
         panel.add(reset);
     }
 
-    public void runCanva(Canvas canva, int MouseX, int MouseY){
+    public void runCanva(int MouseX, int MouseY){
 
-        Graphics g = canva.getGraphics();
-        g.drawOval(MouseX, MouseY, 25, 25);
+        paint(g);
     }
+
 }
