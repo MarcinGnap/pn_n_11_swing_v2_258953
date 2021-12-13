@@ -5,10 +5,7 @@ import com.sun.tools.javac.Main;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.Random;
 import java.awt.Canvas;
 
@@ -33,32 +30,6 @@ public class MainWindow extends JFrame {
     public MainWindow(JPanel panel) throws HeadlessException {
         super(title);
         buildFrame(panel);
-    }
-
-    public void runNewFrame(JPanel newPanel){
-        MainWindow newFrame = new MainWindow(newPanel);
-        newFrame.setVisible(true);
-
-        cnvs kanwa = new cnvs();
-
-        Point p = MouseInfo.getPointerInfo().getLocation();
-        int MouseX = p.x;
-        int MouseY = p.y;
-
-        setBounds(0, 0, 640, 640);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        newPanel.setLayout(null);
-
-        JPanel newContentPane = new JPanel();
-
-        newContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(newContentPane);
-        newContentPane.setLayout(null);
-
-        newPanel.setBounds(0, 0, 640, 640);
-        newContentPane.add(newPanel);
-        newContentPane.add(kanwa);
     }
 
     protected void buildFrame(JPanel panel) {
@@ -115,6 +86,42 @@ public class MainWindow extends JFrame {
         });
         reset.setBounds(515, 555, 100, 35);
         panel.add(reset);
+    }
+
+    public void runNewFrame(JPanel newPanel){
+        MainWindow newFrame = new MainWindow(newPanel);
+        newFrame.setVisible(true);
+        KeyEvent event = null;
+
+        cnvs kanwa = new cnvs();
+
+        Point p = MouseInfo.getPointerInfo().getLocation();
+        int MouseX = p.x;
+        int MouseY = p.y;
+
+        setBounds(0, 0, 640, 640);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        newPanel.setLayout(null);
+
+        JPanel newContentPane = new JPanel();
+
+        newContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(newContentPane);
+        newContentPane.setLayout(null);
+
+        newPanel.setBounds(0, 0, 640, 640);
+        newContentPane.add(newPanel);
+        newContentPane.add(kanwa);
+
+        //KeyStroke mPressed = KeyStroke.getKeyStroke(KeyEvent.VK_M, 0, true);
+        if (event.getKeyCode() == KeyEvent.VK_M){
+            System.exit(0);
+        }
+       // KeyStroke kPressed = KeyStroke.getKeyStroke(KeyEvent.VK_K, 0, true);
+        if (event.getKeyCode() == KeyEvent.VK_K){
+            System.exit(0);
+        }
     }
 
 }
