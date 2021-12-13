@@ -1,6 +1,7 @@
 package tb.soft;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -36,15 +37,30 @@ public class MainWindow extends JFrame {
 
         panel.setLayout(null);
 
+        JPanel contentPane = new JPanel();
+
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        panel.setBounds(0, 0, 640, 640);
+        contentPane.add(panel);
+
         JButton btn = new JButton("Click");
         btn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 Random random = new Random();
-                int x = random.nextInt(600);
-                int y = random.nextInt(600);
+                int x = random.nextInt(515);
+                int y = random.nextInt(555);
                 btn.setLocation(x, y);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                runCanva();
             }
         });
         btn.setBounds(20, 500, 100, 35);
@@ -61,4 +77,20 @@ public class MainWindow extends JFrame {
         reset.setBounds(515, 555, 100, 35);
         panel.add(reset);
     }
+
+    public void runCanva(){
+
+    }
+}
+
+class MyCanva extends Canvas{
+
+    public void drawOval(Graphics g, int MouseX, int MouseY){
+        g.drawOval(MouseX, MouseY, 25, 25);
+    }
+
+    public void drawRect(Graphics g, int MouseX, int MouseY){
+        g.drawRect(MouseX, MouseY, 25, 25);
+    }
+
 }
