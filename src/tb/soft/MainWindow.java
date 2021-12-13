@@ -85,6 +85,10 @@ public class MainWindow extends JFrame {
 
 class MyCanva extends Canvas{
 
+    Point p = MouseInfo.getPointerInfo().getLocation();
+    int MouseX = p.x;
+    int MouseY = p.y;
+
     public void drawOval(Graphics g, int MouseX, int MouseY){
         g.drawOval(MouseX, MouseY, 25, 25);
     }
