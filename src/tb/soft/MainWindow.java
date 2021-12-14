@@ -14,12 +14,12 @@ import java.awt.Canvas;
 public class MainWindow extends JFrame {
     private static final String title = "Click me!";
 
-    public static void main(String[] args, Graphics g) {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
                     JPanel panel = new JPanel();
-                    MainWindow frame = new MainWindow(panel, g);
+                    MainWindow frame = new MainWindow(panel);
                     frame.add(panel);
                     frame.setVisible(true);
                 } catch (Exception e) {
@@ -29,12 +29,12 @@ public class MainWindow extends JFrame {
         });
     }
 
-    public MainWindow(JPanel panel, Graphics g) throws HeadlessException {
+    public MainWindow(JPanel panel) throws HeadlessException {
         super(title);
-        buildFrame(panel, g);
+        buildFrame(panel);
     }
 
-    protected void buildFrame(JPanel panel, Graphics g) {
+    protected void buildFrame(JPanel panel) {
 
         setBounds(0, 0, 640, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,13 +66,13 @@ public class MainWindow extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                runNewFrame(newPanel, g);
+                runNewFrame(newPanel);
             }
         });
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                runNewFrame(newPanel, g);
+                runNewFrame(newPanel);
             }
         });
         btn.setBounds(20, 500, 100, 35);
@@ -90,8 +90,8 @@ public class MainWindow extends JFrame {
         panel.add(reset);
     }
 
-    public void runNewFrame(JPanel newPanel, Graphics g){
-        MainWindow newFrame = new MainWindow(newPanel, g);
+    public void runNewFrame(JPanel newPanel){
+        MainWindow newFrame = new MainWindow(newPanel);
         newFrame.setVisible(true);
         KeyEvent event = null;
 
@@ -116,6 +116,11 @@ public class MainWindow extends JFrame {
         newContentPane.add(newPanel);
         newContentPane.add(kanwa);
 
+
+        //  Niestety w tym miejscu kod się nie kompiluje
+        //  wynikneło to już z braku czasu
+        //  spowodowanym przez remont, o którym Panu mówiłem
+        //  na zajęciach.
         if (event.getKeyCode() == KeyEvent.VK_M){
             cnvs.paintRect(g, MouseX, MouseY);
         }
