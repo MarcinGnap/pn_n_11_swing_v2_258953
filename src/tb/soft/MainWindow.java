@@ -6,18 +6,20 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 import java.util.Random;
 import java.awt.Canvas;
 
 public class MainWindow extends JFrame {
     private static final String title = "Click me!";
 
-    public static void main(String[] args) {
+    public static void main(String[] args, Graphics g) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
                     JPanel panel = new JPanel();
-                    MainWindow frame = new MainWindow(panel);
+                    MainWindow frame = new MainWindow(panel, g);
                     frame.add(panel);
                     frame.setVisible(true);
                 } catch (Exception e) {
@@ -27,12 +29,12 @@ public class MainWindow extends JFrame {
         });
     }
 
-    public MainWindow(JPanel panel) throws HeadlessException {
+    public MainWindow(JPanel panel, Graphics g) throws HeadlessException {
         super(title);
-        buildFrame(panel);
+        buildFrame(panel, g);
     }
 
-    protected void buildFrame(JPanel panel) {
+    protected void buildFrame(JPanel panel, Graphics g) {
 
         setBounds(0, 0, 640, 640);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,13 +66,13 @@ public class MainWindow extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                runNewFrame(newPanel);
+                runNewFrame(newPanel, g);
             }
         });
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                runNewFrame(newPanel);
+                runNewFrame(newPanel, g);
             }
         });
         btn.setBounds(20, 500, 100, 35);
@@ -88,8 +90,8 @@ public class MainWindow extends JFrame {
         panel.add(reset);
     }
 
-    public void runNewFrame(JPanel newPanel){
-        MainWindow newFrame = new MainWindow(newPanel);
+    public void runNewFrame(JPanel newPanel, Graphics g){
+        MainWindow newFrame = new MainWindow(newPanel, g);
         newFrame.setVisible(true);
         KeyEvent event = null;
 
@@ -114,13 +116,11 @@ public class MainWindow extends JFrame {
         newContentPane.add(newPanel);
         newContentPane.add(kanwa);
 
-        //KeyStroke mPressed = KeyStroke.getKeyStroke(KeyEvent.VK_M, 0, true);
         if (event.getKeyCode() == KeyEvent.VK_M){
-            System.exit(0);
+            cnvs.paintRect(g, MouseX, MouseY);
         }
-       // KeyStroke kPressed = KeyStroke.getKeyStroke(KeyEvent.VK_K, 0, true);
         if (event.getKeyCode() == KeyEvent.VK_K){
-            System.exit(0);
+            cnvs.paintOval(g, MouseX, MouseY);
         }
     }
 
